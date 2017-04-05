@@ -93,8 +93,7 @@
 					},
 					"useBatch": false
 				},
-				"dataSource": "ZVIP_PAYMENTTRACK_SRV",
-				"preload": true
+				"dataSource": "ZVIP_PAYMENTTRACK_SRV"
 			},
 			"oDataModel": {
 				"type": "sap.ui.model.odata.v2.ODataModel",
@@ -109,8 +108,7 @@
 					},
 					"useBatch": false
 				},
-				"dataSource": "ZVIP_PROJECT_SRV",
-				"preload": true
+				"dataSource": "ZVIP_PROJECT_SRV"
 			}
 		},
 		"resources": {
