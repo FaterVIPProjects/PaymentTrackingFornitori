@@ -1,0 +1,160 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<List class="sapUiSizeCompact"
+		items="{lines}"
+		headerText="{i18n>lineItemsListHeaderText}">
+		<items>
+			<CustomListItem
+				type="Inactive">
+				<content>
+					<l:Grid
+						width="100%"
+						defaultSpan="L12 M12 S12">
+						
+						<ObjectHeader
+							title="{i18n>docNumberLabel}: {docNumber}"
+							intro="{docType}"
+							number="{
+								parts:[{path:'amount'},{path:'currency'}],
+								type: 'sap.ui.model.type.Currency',
+								formatOptions: {showMeasure: false}
+							}"
+							numberUnit="{currency}"
+							backgroundDesign="Transparent"
+							condensed="true"
+							titleLevel="H4">
+						</ObjectHeader>
+						
+						<Label 
+							design="Bold" 
+							width="100%"
+							text="{i18n>documentDateLabel}">
+							<layoutData>
+								<l:GridData 
+									span="L2 M2 S2"
+									indent="L0 M0 S0"
+									linebreak="false"/>
+							</layoutData>
+						</Label>
+						
+						<Text
+							class="descriptionText"
+							text="{docDate}"
+							width="100%">
+							<layoutData>
+								<l:GridData 
+									span="L2 M2 S2"
+									indent="L0 M0 S0"
+									linebreak="false"/>
+							</layoutData>
+						</Text>
+						
+						<!-- -->
+						
+						<Label 
+							design="Bold" 
+							width="100%"
+							text="{i18n>expireDateLabel}">
+							<layoutData>
+								<l:GridData 
+									span="L2 M2 S2"
+									indent="L0 M0 S0"
+									linebreak="false"/>
+							</layoutData>
+						</Label>
+						
+						<Text
+							class="descriptionText"
+							text="{expireDate}"
+							width="100%">
+							<layoutData>
+								<l:GridData 
+									span="L2 M2 S2"
+									indent="L0 M0 S0"
+									linebreak="false"/>
+							</layoutData>
+						</Text>
+						
+						<!-- -->
+						
+						<Label 
+							design="Bold" 
+							width="100%"
+							text="{i18n>pareggioDocNumberLabel}">
+							<layoutData>
+								<l:GridData 
+									span="L2 M2 S2"
+									indent="L0 M0 S0"
+									linebreak="true"/>
+							</layoutData>
+						</Label>
+						
+						<Text
+							class="descriptionText"
+							text="{pareggioDocNumber}"
+							width="100%">
+							<layoutData>
+								<l:GridData 
+									span="L2 M2 S2"
+									indent="L0 M0 S0"
+									linebreak="false"/>
+							</layoutData>
+						</Text>
+						
+						<!-- -->
+						
+						<Label 
+							design="Bold" 
+							width="100%"
+							text="{i18n>pareggioDocDateLabel}">
+							<layoutData>
+								<l:GridData 
+									span="L2 M2 S2"
+									indent="L0 M0 S0"
+									linebreak="false"/>
+							</layoutData>
+						</Label>
+						
+						<Text
+							class="descriptionText"
+							text="{pareggioDocDate}"
+							width="100%">
+							<layoutData>
+								<l:GridData 
+									span="L2 M2 S2"
+									indent="L0 M0 S0"
+									linebreak="false"/>
+							</layoutData>
+						</Text>
+						
+						<!-- -->
+						
+						<Label 
+							design="Bold" 
+							width="100%"
+							text="{i18n>internalDocNumberLabel}">
+							<layoutData>
+								<l:GridData 
+									span="L2 M2 S2"
+									indent="L0 M0 S0"
+									linebreak="false"/>
+							</layoutData>
+						</Label>
+						
+						<Text
+							class="descriptionText"
+							text="{internalDocNumber}"
+							width="100%">
+							<layoutData>
+								<l:GridData 
+									span="L2 M2 S2"
+									indent="L0 M0 S0"
+									linebreak="false"/>
+							</layoutData>
+						</Text>
+						
+					</l:Grid>
+				</content>
+			</CustomListItem>
+		</items>
+	</List>	
+</core:FragmentDefinition>

@@ -1,0 +1,233 @@
+<mvc:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" 
+	controllerName="org.fater.app.controller.Detail"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+		<Page 
+			title="{i18n>detailPageTitle}" 
+			showNavButton="true" 
+			navButtonPress="onNavBack">
+			<content>
+				<ObjectHeader
+					backgroundDesign="Transparent"
+					condensed="true"				
+					title="{i18n>paymentReminderNumberLabel}: {docNr}"
+					number="{
+						parts:[{path:'totalGrossAmount'},{path:'currency'}],
+						type: 'sap.ui.model.type.Currency',
+						formatOptions: {showMeasure: false}
+					}"
+					numberUnit="{currency}" >
+					<statuses>
+					</statuses>
+					<attributes>
+						<ObjectAttribute class="boldAttributeText" 
+							title="{i18n>paymentReminderDocDate}" 
+							text="{
+								path:'docDate',
+								type: 'sap.ui.model.type.Date',
+							    formatOptions: {
+							    	source: {
+							    		pattern: 'yyyy-MM-ddTHH:mm:ss'
+							    	}
+							    }
+							}" 
+							tooltip="{i18n>paymentReminderDocDateTTP}"/>
+						<ObjectAttribute class="boldAttributeText" title="{i18n>sourceBankLabel}" 		 text="{sourceBank}" tooltip="{i18n>sourceBankTTP}"/>
+						<ObjectAttribute class="boldAttributeText" title="{i18n>destinationBankLabel}"	 text="{destinationBank}" tooltip="{i18n>destinationBankTTP}"/>
+					</attributes>
+				</ObjectHeader>
+
+				<!-- Table header -->
+				<Table class="sapUiSizeCompact"
+					showNoData="false"
+					id="paymentReminderHeaderTable">
+					
+					<columns>
+						<Column id="docNumberColHeader"													
+							hAlign="Left">
+							<Text text="{i18n>docNumberLabel}" tooltip="{i18n>docNumberColumnTTP}"/>
+						</Column>
+						
+						<Column id="docDateColHeader" 		
+							minScreenWidth="Tablet"
+							demandPopin="true"	
+							hAlign="Center">
+							<Text text="{i18n>documentDateLabel}"
+								tooltip="{i18n>docDateColumnTTP}"/>
+						</Column>
+						
+						<Column id="docDiscountColHeader"		
+							minScreenWidth="Tablet" 
+							demandPopin="true"	
+							hAlign="Right">
+							<Text text="{i18n>docDiscountLabel}" 
+								tooltip="{i18n>docDiscountColumnTTP}"/>
+						</Column>
+						
+						<Column id="docQuotaRifAColHeader"	
+							minScreenWidth="Tablet" 
+							demandPopin="true"	
+							hAlign="Right">
+							<Text text="{i18n>docQuotaRifALabel}" 
+								tooltip="{i18n>docQuotaRifAColumnTTP}"/>
+						</Column>
+						
+						<Column id="docGrossAmountColHeader"
+							minScreenWidth="Tablet"
+							demandPopin="true"	
+							hAlign="Right">
+							<Text text="{i18n>docGrossAmountLabel}"
+								tooltip="{i18n>docGrossAmountColumnTTP}"/>
+						</Column>
+					</columns>
+				</Table>
+				
+				<!-- Table content -->
+				<ScrollContainer id="scrollContainerLines"
+					height="20rem"
+					horizontal="false"
+					vertical="true"
+					focusable="true">					
+					<Table class="sapUiSizeCompact"
+						id="paymentReminderLinesTable"
+						items="{lines}">
+						<columns>
+							<Column id="docNumberCol"													
+								hAlign="Left">
+								<footer>
+									<ObjectNumber 
+										number="{i18n>totalLabel}"/>
+								</footer>
+							</Column>
+							
+							<Column id="docDateCol" 		
+								minScreenWidth="Tablet"
+								demandPopin="true"	
+								hAlign="Center">
+							</Column>
+							
+							<Column id="docDiscountCol"		
+								minScreenWidth="Tablet" 
+								demandPopin="true"	
+								hAlign="Right">
+								<footer>
+									<ObjectNumber 
+										number="{
+											path: 'lines',
+							            	formatter: '.formatter.totalDiscount'
+										}" 
+										unit="{
+											parts: [
+												{path: 'lines'},
+												{path: 'currency'}
+											],
+							            	formatter: '.formatter.unitDiscountVisible'
+										}" />
+								</footer>
+							</Column>
+							
+							<Column id="docQuotaRifACol"	
+								minScreenWidth="Tablet" 
+								demandPopin="true"	
+								hAlign="Right">
+								<footer>
+									<ObjectNumber 
+										number="{
+											path: 'lines',
+							            	formatter: '.formatter.totalRifA'
+										}" 
+										unit="{currency}" />
+								</footer>
+							</Column>
+							
+							<Column id="docGrossAmountCol"
+								minScreenWidth="Tablet"
+								demandPopin="true"	
+								hAlign="Right">
+								<footer>
+									<ObjectNumber 
+										number="{
+											path: 'lines',
+							            	formatter: '.formatter.totalGrossAmount'
+										}"  
+										unit="{currency}" />
+								</footer>
+							</Column>
+						</columns>
+						
+						<items>
+							<ColumnListItem
+								type="Inactive"
+								press="onColumnListItemPress">
+								<cells>
+									<ObjectIdentifier title="{docNr}" class="sapMTableContentMargin" />
+									<Text text="{
+										path:'docDate',
+										type: 'sap.ui.model.type.Date',
+									    formatOptions: {
+									    	source: {
+									    		pattern: 'yyyy-MM-ddTHH:mm:ss'
+									    	}
+									    }}" />
+									<ObjectNumber 
+										number="{
+											path: 'docDiscount',
+											formatter: '.formatter.discountFormatter'
+										}" 
+										unit="{
+											path: 'docDiscount',
+											formatter: '.formatter.unitVisible'
+										}"  />
+									<ObjectNumber 
+										number="{
+											parts:[{path:'docQuotaRifA'},{path:'currency'}],
+											type: 'sap.ui.model.type.Currency',
+											formatOptions: {showMeasure: false}
+										}" 
+										unit="{tempModel>/CurrentLineCurrency}" />
+									<ObjectNumber 
+										number="{
+											parts:[{path:'docGrossAmount'},{path:'currency'}],
+											type: 'sap.ui.model.type.Currency',
+											formatOptions: {showMeasure: false}
+										}" 
+										unit="{tempModel>/CurrentLineCurrency}" />
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</ScrollContainer>
+				
+				<!-- Notes text area -->
+				<Panel
+					headerText=" "
+					width="100%"
+					expandable="false"
+					expanded="true">
+					<content>
+						<Text 
+							id="notesTextArea"
+							class="paymentReminderNotes"
+							text="{notes}" 
+							tooltip="{i18n>notesTTP}"/>
+					</content><!-- sap.ui.core.Control -->
+				</Panel>
+				
+				<!-- Notes 2 text area -->
+				<Panel 
+					headerText=" "
+					width="100%"
+					expandable="false"
+					expanded="true">
+					<content>
+						<Text 
+							id="notes2TextArea"
+							class="paymentReminderNotes"
+							text="{notes2}" 
+							tooltip="{i18n>notesTTP}"/>
+					</content><!-- sap.ui.core.Control -->
+				</Panel>				
+			</content>
+		</Page>
+</mvc:View>

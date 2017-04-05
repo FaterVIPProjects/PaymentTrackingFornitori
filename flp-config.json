@@ -1,0 +1,35 @@
+{
+    "application": {
+        "id": "",
+        "title": "fater-payment-tracking",
+        "description": "Payment Tracking App",
+        "type": "SAP_UI5_Component",
+        "componentUrl": "/",
+        "appUrl": "#faterpaymenttracking-Display",
+        "navigationComponentName": "org.fater.app",
+        "intentSemanticObject": "fater-payment-tracking",
+        "intentAction": "Display",
+        "html5ApplicationName": "faterpaymenttracking",
+        "HCPParentApplicationName": ""
+    },
+    "assignment": {
+        "groups": [
+            "00000000-0000-1111-0000-00000000"
+        ],
+        "contentPackages": [
+            "0b49f7d3-bdbb-4e7f-8da8-8d6ea5eaca69-1471426089940"
+        ],
+        "categories": []
+    },
+    "tile": {
+        "type": "StaticTile",
+        "title": "Payment Tracking",
+        "subtitle": "Payment tracking application",
+        "searchKeywords": "Payment Tracking,Payment tracking application",
+        "displayIconUrl": "sap-icon://monitor-payments",
+        "displayInfoText": "",
+        "size": "1x1",
+        "serviceURL": "",
+        "refreshInterval": ""
+    }
+}

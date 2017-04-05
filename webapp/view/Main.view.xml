@@ -1,0 +1,189 @@
+<mvc:View 
+	controllerName="org.fater.app.controller.Main" 
+	xmlns:html="http://www.w3.org/1999/xhtml" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m"
+	xmlns:a="sap.uxap"		
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:fb="sap.ui.comp.filterbar">
+	
+	<Page enableScrolling="false"
+		showHeader="false">
+		<content>
+			<fb:FilterBar 
+				id="supplierFilterBar"
+				header="{i18n>appTitle}"
+				reset="onFilterBarReset" 
+				filterContainerWidth="23%"
+				filtersDialogClosed="handleFilterDialogClosed"				
+				search="onFilterBarSearch" 
+				clear="onFilterBarReset" 
+				showRestoreButton="true" 
+				showClearButton="false"
+				showClearOnFB="false">
+				
+				<fb:filterItems>
+					
+					<!-- Supplier selection -->
+					<fb:FilterItem name="A0" label="{i18n>supplierFilterLabel}" mandatory="true">
+						<fb:control>
+							<MultiInput
+								id="supplierFilterInput"
+								type="Text"
+								placeholder="{i18n>supplierFilterInputPlaceholder}"
+								showSuggestion="true"
+								showValueHelp="true"
+								valueHelpRequest="handleSupplierValueHelpPress"
+								suggest="_handleSuggest"
+								suggestionItems="{tempModel>/AssociatedSuppliers}"
+								suggestionItemSelected="handleSuggestionSelected"
+								enableMultiLineMode="true"
+								tokens="{/filters/suppliers}"
+								tokenUpdate="_handleDeleteSupplierToken"
+								tooltip="{i18n>supplierFilterInputTTP}">
+								<suggestionItems>
+									<core:Item text="{tempModel>supplierName}" key="{tempModel>supplierId}/{tempModel>paymentConditions}"/>
+								</suggestionItems>
+							
+								<tokens>
+									<Token text="{supplierName}"
+										key="{supplierId}">
+									</Token>
+								</tokens>
+							</MultiInput>
+						</fb:control>
+					</fb:FilterItem>
+					
+					<fb:FilterItem name="F0" label="{i18n>typeCompanyFilterLabel}">
+						<fb:control>
+							<Select enabled="false">
+								<core:Item key="20" text="FATER S.P.A." />
+							</Select>
+						</fb:control>
+					</fb:FilterItem>						
+					
+					<!-- Start date -->
+					<fb:FilterItem name="B0" label="{i18n>lowerBoundDateFilterLabel}">
+						<fb:control>
+							<DatePicker
+								valueFormat="yyyy-MM-dd"
+								id="filterLowerBoundDatePicker"
+								placeholder="{i18n>lowerBoundDatePlaceholder}"
+								value="{/filters/lowerBound}" 
+								displayFormat="dd.MM.yyyy"
+								change="handleDatePickerChange"
+								class="sapUiSmallMarginBottom"
+								tooltip="{i18n>filterLowerBoundDatePickerTTP}"/>
+						</fb:control>
+					</fb:FilterItem>
+					
+					<!-- End date -->
+					<fb:FilterItem name="C0" label="{i18n>upperBoundDateFilterLabel}">
+						<fb:control>
+							<DatePicker
+								valueFormat="yyyy-MM-dd"
+								id="filterUpperBoundDatePicker"
+								placeholder="{i18n>upperBoundDatePlaceholder}"
+								value="{/filters/upperBound}" 
+								displayFormat="dd.MM.yyyy"
+								change="handleDatePickerChange"
+								class="sapUiSmallMarginBottom"
+								tooltip="{i18n>filterUpperBoundDatePickerTTP}"/>
+						</fb:control>
+					</fb:FilterItem>
+					
+					<!-- Invoice number -->
+					<fb:FilterItem name="D0" label="{i18n>invoiceNumberFilterLabel}">
+						<fb:control>
+							<Input 
+								type="Text" 
+								value="{/filters/invoiceNumber}" 
+								placeholder="{i18n>invoiceNumberInputPlaceholder}"
+								tooltip="{i18n>invoiceNumberFilterTTP}"/>
+						</fb:control>
+					</fb:FilterItem>
+					
+					<!-- Tipo Partite -->
+					<fb:FilterItem name="E0" label="{i18n>typePartiteFilterLabel}">
+						<fb:control>
+							
+							<!--<RadioButtonGroup columns="5" selectedIndex="{/filters/partite}">-->
+							<!--	<buttons>-->
+							<!--		<RadioButton id="partiteRadioButton-partite-all"		text="{i18n>allPartiteRadioButtonText}"/>-->
+							<!--		<RadioButton id="partiteRadioButton-partite-aperte" 	text="{i18n>partiteAperteRadioButtonTexxt}"/>-->
+							<!--		<RadioButton id="partiteRadioButton-partite-pareggiate" text="{i18n>partitePareggiateRadioButtonText}"/>-->
+							<!--	</buttons>-->
+							<!--</RadioButtonGroup>-->
+							
+							<l:HorizontalLayout>
+								<CheckBox
+									id="partiteAperteCheckBox"
+									selected="{/filters/partiteAperte}"
+									select="onCheckBoxChange"
+									text="{i18n>partiteAperteRadioButtonTexxt}"
+									width="100%"
+									tooltip="{i18n>partiteSelectionTTP}"/>
+								<CheckBox
+									id="partitePareggiateCheckBox"
+									selected="{/filters/partitePareggiate}"
+									select="onCheckBoxChange"
+									text="{i18n>partitePareggiateRadioButtonText}"
+									width="100%"
+									tooltip="{i18n>partiteSelectionTTP}"/>
+							</l:HorizontalLayout>
+						</fb:control>
+					</fb:FilterItem>
+				</fb:filterItems>
+			</fb:FilterBar>
+					
+			<!-- Invoices list -->
+<!--			<IconTabBar
+				id="idIconTabBarNoIcons"
+				class="sapUiResponsiveContentPadding"
+				visible="{tempModel>/config/dataLoaded}"
+				items="{/invoices}">
+				<items>
+					<IconTabFilter
+						text="{supplierId}">
+						<core:Fragment fragmentName="org.fater.app.view.fragment.supplierInvoiceTemplate" type="XML" />
+					</IconTabFilter>
+				</items>
+			</IconTabBar>-->
+			
+			<a:ObjectPageLayout id="detailPage"
+				visible="{tempModel>/config/dataLoaded}"
+				alwaysShowContentHeader="true"
+				sections="{/invoices}">
+				<a:sections>
+					<a:ObjectPageSection visible="{visible}">
+						<a:subSections>
+							<a:ObjectPageSubSection mode="Expanded"
+								title="{supplierId}">
+								<a:blocks>
+									<core:Fragment fragmentName="org.fater.app.view.fragment.supplierInvoiceTemplate" type="XML" />
+								</a:blocks>
+							</a:ObjectPageSubSection>
+						</a:subSections>
+					</a:ObjectPageSection>											
+				</a:sections>
+			</a:ObjectPageLayout>			
+		</content>
+
+
+		
+		<!-- Page Footer (Export all to CSV) -->
+		<footer>
+			<Toolbar class="foreground"
+				visible="{tempModel>/config/dataLoaded}">
+				<ToolbarSpacer/>
+				<Button 
+					text="{i18n>exportAllButtonLabel}" 
+					icon="sap-icon://excel-attachment"
+					press="onExportAllPress"
+					tooltip="{i18n>exportAllButtonTTP}"/>
+			</Toolbar>
+		</footer>
+	</Page>
+	
+</mvc:View>
