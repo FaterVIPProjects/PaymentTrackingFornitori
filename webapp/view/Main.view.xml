@@ -119,7 +119,7 @@
 							<!--	</buttons>-->
 							<!--</RadioButtonGroup>-->
 							
-							<l:HorizontalLayout>
+							<l:VerticalLayout>
 								<CheckBox
 									id="partiteAperteCheckBox"
 									selected="{/filters/partiteAperte}"
@@ -134,7 +134,7 @@
 									text="{i18n>partitePareggiateRadioButtonText}"
 									width="100%"
 									tooltip="{i18n>partiteSelectionTTP}"/>
-							</l:HorizontalLayout>
+							</l:VerticalLayout>
 						</fb:control>
 					</fb:FilterItem>
 				</fb:filterItems>

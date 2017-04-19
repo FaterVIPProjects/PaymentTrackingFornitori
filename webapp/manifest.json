@@ -86,7 +86,11 @@
 					"defaultOperationMode": "Server",
 					"defaultBindingMode": "OneTime",
 					"defaultCountMode": "None",
-					"useBatch": false
+					"useBatch": false,
+					"headers": {
+						"X-Requested-With": "X",
+						"Content-Type": "application/json"
+					}
 				},
 				"dataSource": "ZVIP_PAYMENTTRACK_SRV"
 			},
@@ -96,17 +100,19 @@
 					"defaultOperationMode": "Server",
 					"defaultBindingMode": "OneTime",
 					"defaultCountMode": "None",
-					"useBatch": false
+					"useBatch": false,
+					"headers": {
+						"X-Requested-With": "X",
+						"Content-Type": "application/json"
+					}
 				},
 				"dataSource": "ZVIP_PROJECT_SRV"
 			}
 		},
 		"resources": {
-			"css": [
-				{
-					"uri": "css/style.css"
-				}
-			]
+			"css": [{
+				"uri": "css/style.css"
+			}]
 		},
 		"routing": {
 			"config": {
@@ -119,18 +125,15 @@
 				"viewLevel": 0,
 				"transition": "slide"
 			},
-			"routes": [
-				{
-					"pattern": "",
-					"name": "main",
-					"target": "main"
-				},
-				{
-					"pattern": "detail/{supplier}/{document}",
-					"name": "detail",
-					"target": "detail"
-				}
-			],
+			"routes": [{
+				"pattern": "",
+				"name": "main",
+				"target": "main"
+			}, {
+				"pattern": "detail/{supplier}/{document}",
+				"name": "detail",
+				"target": "detail"
+			}],
 			"targets": {
 				"main": {
 					"viewName": "Main",
