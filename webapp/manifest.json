@@ -2,7 +2,7 @@
 	"_version": "1.1.0",
 	"sap.app": {
 		"_version": "1.1.0",
-		"id": "org.fater.app",
+		"id": "org.fater.paymenttrackingsupplier",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"applicationVersion": {
@@ -110,9 +110,11 @@
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -125,15 +127,18 @@
 				"viewLevel": 0,
 				"transition": "slide"
 			},
-			"routes": [{
-				"pattern": "",
-				"name": "main",
-				"target": "main"
-			}, {
-				"pattern": "detail/{supplier}/{document}",
-				"name": "detail",
-				"target": "detail"
-			}],
+			"routes": [
+				{
+					"pattern": "",
+					"name": "main",
+					"target": "main"
+				},
+				{
+					"pattern": "detail/{supplier}/{document}",
+					"name": "detail",
+					"target": "detail"
+				}
+			],
 			"targets": {
 				"main": {
 					"viewName": "Main",
