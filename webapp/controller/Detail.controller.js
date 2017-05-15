@@ -2,11 +2,11 @@
 
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	"org/fater/app/util/formatter"	
+	"org/fater/paymenttrackingsupplier/util/formatter"	
 ], function(Controller, formatter) {
 	"use strict";
 	
-	return Controller.extend("org.fater.app.controller.Detail", {
+	return Controller.extend("org.fater.paymenttrackingsupplier.controller.Detail", {
 
 		formatter: formatter,
 

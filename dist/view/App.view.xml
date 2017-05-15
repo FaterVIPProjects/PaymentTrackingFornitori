@@ -1,6 +1,6 @@
 <mvc:View 
 	xmlns:mvc="sap.ui.core.mvc" 
 	xmlns="sap.m" 
-	controllerName="org.fater.app.controller.App">
+	controllerName="org.fater.paymenttrackingsupplier.controller.App">
 	<App id="myApp" />
 </mvc:View>

@@ -57,7 +57,7 @@
 	"sap.ui5": {
 		"_version": "1.1.0",
 		"rootView": {
-			"viewName": "org.fater.app.view.App",
+			"viewName": "org.fater.paymenttrackingsupplier.view.App",
 			"type": "XML",
 			"id": "App"
 		},
@@ -77,7 +77,7 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "org.fater.app.i18n.i18n"
+					"bundleName": "org.fater.paymenttrackingsupplier.i18n.i18n"
 				}
 			},
 			"oPTModel": {
@@ -118,10 +118,10 @@
 		},
 		"routing": {
 			"config": {
-				"routerClass": "org.fater.app.Router",
+				"routerClass": "org.fater.paymenttrackingsupplier.Router",
 				"viewType": "XML",
 				"controlId": "myApp",
-				"viewPath": "org.fater.app.view",
+				"viewPath": "org.fater.paymenttrackingsupplier.view",
 				"controlAggregation": "pages",
 				"clearTarget": false,
 				"viewLevel": 0,
