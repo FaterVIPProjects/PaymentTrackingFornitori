@@ -6,8 +6,8 @@
   "build": {
     "targetFolder": "dist",
     "sourceFolder": "webapp",
-    "buildRequired": true,
-    "lastBuildDateTime": "Thu, 24 Nov 2016 10:12:30 GMT"
+    "buildRequired": false,
+    "lastBuildDateTime": "Mon, 15 May 2017 09:47:47 GMT"
   },
   "generation": [
     {
@@ -51,7 +51,7 @@
     "lastVersionWeTriedToDeploy": "1.0.12"
   },
   "deploy": {
-    "destination": "FaterPlayExtranet",
+    "destination": "ZVIP",
     "name": "Z_PT_SUPPLIER"
   },
   "mockpreview": {
