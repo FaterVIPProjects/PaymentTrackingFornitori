@@ -27,7 +27,7 @@ sap.ui.define([
 			var oModel = oView.getModel();
 			var oTempModel = oView.getModel("tempModel");
 			var associatedSupplier = [];
-			var supplierName = "FOR_0001473";
+			var supplierName = "FOR_0001472";
 			//var supplierName = "FOR_0001472";
 			try {
 				var userShell = sap.ushell.Container.getService("UserInfo").getUser();
