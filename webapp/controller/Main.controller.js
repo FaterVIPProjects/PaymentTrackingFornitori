@@ -27,8 +27,8 @@ sap.ui.define([
 			var oModel = oView.getModel();
 			var oTempModel = oView.getModel("tempModel");
 			var associatedSupplier = [];
-			var supplierName = "FOR_0000852";
-
+			var supplierName = "FOR_0001473";
+			//var supplierName = "FOR_0001472";
 			try {
 				var userShell = sap.ushell.Container.getService("UserInfo").getUser();
 				supplierName = userShell.getId().toUpperCase();
@@ -63,6 +63,7 @@ sap.ui.define([
 						"SupplierId",
 						sap.ui.model.FilterOperator.EQ,
 						formattedSupplier.supplierId
+						//formattedSupplier.Lifnr
 					)];
 
 					//Retrieve Child Suppliers
@@ -586,7 +587,13 @@ sap.ui.define([
 			// Iterate through selected suppliers to retrieve IDs
 			var aSupplierIDs = [];
 			for (var j in aSuppliers) {
-				aSupplierIDs.push(new sap.ui.model.Filter("supplierId", sap.ui.model.FilterOperator.EQ, aSuppliers[j].supplierId));
+				if (j === "0"){
+					aSupplierIDs.push(new sap.ui.model.Filter("supplierId", sap.ui.model.FilterOperator.EQ, aSuppliers[j].Lifnr));	
+				}
+				else{
+					aSupplierIDs.push(new sap.ui.model.Filter("supplierId", sap.ui.model.FilterOperator.EQ, aSuppliers[j].supplierId));	
+				}
+				
 			}
 
 			aSupplierIDs = new sap.ui.model.Filter(aSupplierIDs, false);
@@ -714,6 +721,10 @@ sap.ui.define([
 							var sSupplier = oData.results[i];
 							var sSupplierId = sSupplier.supplierId;
 							var invoiceSupplierId = aInvoices[x].supplierId;
+							//var invoiceSupplierId = aInvoices[x].Lifnr;
+							sSupplierId = sSupplierId.replace(/^0+/, '');
+							invoiceSupplierId = invoiceSupplierId.replace(/^0+/, '');
+							
 							if (sSupplierId === invoiceSupplierId) {
 								sSupplier.paymentReminder = null;
 								aInvoices[x].visible = true;
