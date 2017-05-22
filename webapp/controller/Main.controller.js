@@ -27,7 +27,7 @@ sap.ui.define([
 			var oModel = oView.getModel();
 			var oTempModel = oView.getModel("tempModel");
 			var associatedSupplier = [];
-			var supplierName = "FOR_0001472";
+			var supplierName = "FOR_0001474";
 			//var supplierName = "FOR_0001472";
 			try {
 				var userShell = sap.ushell.Container.getService("UserInfo").getUser();
@@ -976,31 +976,54 @@ sap.ui.define([
 			return sCSV;
 		},
 
-		_downloadCSVFile: function(sReportTitle, sCSV) {
-			//Generate a file name
+				_downloadCSVFile: function(sReportTitle, sCSV) {
 			//this will remove the blank-spaces from the title and replace it with an underscore
 			var sFileName = sReportTitle.replace(/ /g, "_");
+			// Internet Explorer 6-11
+			var isIE = /*@cc_on!@*/ false || !!document.documentMode;
+			if (isIE === true) {
+				var blob = new Blob([sCSV], {
+					type: "text/csv;charset=UTF-8",
+					encoding:"UTF-8"
+				});
+				if (navigator.msSaveBlob) { // IE 10+
+					navigator.msSaveBlob(blob, sFileName + ".csv");
+				} else {
+					var link = document.createElement("a");
+					if (link.download !== undefined) { // feature detection
+						// Browsers that support HTML5 download attribute
+						var url = URL.createObjectURL(blob);
+						link.setAttribute("href", url);
+						link.setAttribute("download", sFileName + ".csv");
+						link.style = "visibility:hidden";
+						document.body.appendChild(link);
+						link.click();
+						document.body.removeChild(link);
+					}
+				}
 
-			//Initialize file format you want csv or xls
-			var uri = 'data:text/csv;charset=utf-8,' + escape(sCSV);
+			} else {
+				//Initialize file format you want csv or xls
+				var uri = 'data:text/csv;charset=utf-8,' + escape(sCSV);
 
-			// Now the little tricky part.
-			// you can use either>> window.open(uri);
-			// but this will not work in some browsers
-			// or you will not get the correct file extension    
+				// Now the little tricky part.
+				// you can use either>> window.open(uri);
+				// but this will not work in some browsers
+				// or you will not get the correct file extension    
 
-			//this trick will generate a temp <a /> tag
-			var link = document.createElement("a");
-			link.href = uri;
+				//this trick will generate a temp <a /> tag
+				var link = document.createElement("a");
+				link.href = uri;
 
-			//set the visibility hidden so it will not effect on your web-layout
-			link.style = "visibility:hidden";
-			link.download = sFileName + ".csv";
+				//set the visibility hidden so it will not effect on your web-layout
+				//link.style = "visibility:hidden";
+				link.download = sFileName + ".csv";
 
-			//this part will append the anchor tag and remove it after automatic click
-			document.body.appendChild(link);
-			link.click();
-			document.body.removeChild(link);
+				//this part will append the anchor tag and remove it after automatic click
+				document.body.appendChild(link);
+				link.click();
+				document.body.removeChild(link);
+			}
 		},
 
 		/**
