@@ -169,7 +169,9 @@
 										path: 'amount',
 						            	formatter: '.formatter.amountFormatter'
 									}" 
-									unit="{currency}" />
+									unit="{currency}"
+									state="{=${amount}>0 ? 'Success' : 'Error'}"
+									/>
 								<Text text="{
 										path:'docDate',
 										type: 'sap.ui.model.type.Date',

@@ -2,10 +2,9 @@
 	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:a="sap.uxap" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core"
 	xmlns:fb="sap.ui.comp.filterbar">
 	<Page enableScrolling="false" showHeader="false">
-		<content> 
+		<content>
 			<fb:FilterBar id="supplierFilterBar" header="{i18n>appTitle}" reset="onFilterBarReset" filterContainerWidth="23%"
-				filtersDialogClosed="handleFilterDialogClosed" search="onFilterBarSearch" clear="onFilterBarReset" 
-				showFilterConfiguration="true"
+				filtersDialogClosed="handleFilterDialogClosed" search="onFilterBarSearch" clear="onFilterBarReset" showFilterConfiguration="true"
 				showRestoreButton="false" showClearButton="false" showClearOnFB="false" advancedMode="false">
 				<fb:filterItems>
 					<fb:FilterItem name="F0" label="{i18n>typeCompanyFilterLabel}">

@@ -62,35 +62,43 @@ sap.ui.define([
 				tableColumns:[
 					{
 						name: oBundle.getText("docNumberLabel"),
-						selected: true
+						selected: true,
+						visible:false
 					},
 					{
 						name: oBundle.getText("docTypeLabel"),
-						selected: true
+						selected: true,
+						visible:true
 					},
 					{
 						name: oBundle.getText("docAmountLabel"),
-						selected: true
+						selected: true,
+						visible:true
 					},
 					{
 						name: oBundle.getText("documentDateLabel"),
-						selected: true
+						selected: true,
+						visible:true
 					},
 					{
 						name: oBundle.getText("expireDateLabel"),
-						selected: true
+						selected: true,
+						visible:true
 					},
 					{
 						name: oBundle.getText("pareggioDocNumberLabel"),
-						selected: true
+						selected: true,
+						visible:true
 					},
 					{
 						name: oBundle.getText("pareggioDocDateLabel"),
-						selected: true
+						selected: true,
+						visible:true
 					},
 					{
 						name: oBundle.getText("internalDocNumberLabel"),
-						selected: true
+						selected: true,
+						visible:true
 					}
 				],
 				sortItems:[
