@@ -199,9 +199,17 @@ sap.ui.define([
 		        var amount1 = new sap.ui.model.type.Currency({showMeasure: false});
 		        
 				for(var i = 0; lines[i]; i++){
-					total += parseFloat(lines[i].docGrossAmount, 10);
+					//var value = parseFloat(lines[i].docGrossAmount, 10);
+					//total += value;
+					
+					if (lines[i].docGrossAmount.substr(lines[i].docGrossAmount.length - 1) === "-"){
+						var amount = lines[i].docGrossAmount.substr(0, lines[i].docGrossAmount.length - 1);
+						total -= parseFloat(amount, 10);
+					} else {
+						total += parseFloat(lines[i].docGrossAmount, 10);						
+					}	
 				}
-        
+ 
 		        change.push(total);
 		        change.push("EUR");
 	            return amount1.formatValue(change, sInternalType);					

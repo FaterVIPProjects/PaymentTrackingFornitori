@@ -28,7 +28,7 @@ sap.ui.define([
 			var oTempModel = oView.getModel("tempModel");
 			var associatedSupplier = [];
 			//var supplierName = "FOR_0000852";
-			var supplierName = "FOR_0001472";
+			var supplierName = "FOR_0001543";
 			try {
 				var userShell = sap.ushell.Container.getService("UserInfo").getUser();
 				supplierName = userShell.getId().toUpperCase();
@@ -707,6 +707,10 @@ sap.ui.define([
 				success: function(oData) {
 					var aInvoices = aSuppliers;
 					for (var x = 0; aInvoices[x]; x++) {
+						// FIX SOSTITUZIONE SUPPLIER_ID CON LIFNR
+						if (x === 0)
+							aInvoices[x].supplierId = aInvoices[x].Lifnr;
+						
 						aInvoices[x].visible = false;
 						aInvoices[x].Invoices = [];
 
@@ -721,10 +725,16 @@ sap.ui.define([
 							var sSupplier = oData.results[i];
 							var sSupplierId = sSupplier.supplierId;
 							var invoiceSupplierId = aInvoices[x].supplierId;
-							//var invoiceSupplierId = aInvoices[x].Lifnr;
-							sSupplierId = sSupplierId.replace(/^0+/, '');
-							invoiceSupplierId = invoiceSupplierId.replace(/^0+/, '');
+							if (sSupplierId && sSupplierId !== "")
+								sSupplierId = sSupplierId.replace(/^0+/, '');
+							else
+								sSupplierId = "";
 							
+							if (invoiceSupplierId && invoiceSupplierId !== "")
+								invoiceSupplierId = invoiceSupplierId.replace(/^0+/, '');
+							else
+								invoiceSupplierId = "";
+
 							if (sSupplierId === invoiceSupplierId) {
 								sSupplier.paymentReminder = null;
 								aInvoices[x].visible = true;
@@ -976,7 +986,7 @@ sap.ui.define([
 			return sCSV;
 		},
 
-				_downloadCSVFile: function(sReportTitle, sCSV) {
+			_downloadCSVFile: function(sReportTitle, sCSV) {
 			//this will remove the blank-spaces from the title and replace it with an underscore
 			var sFileName = sReportTitle.replace(/ /g, "_");
 			// Internet Explorer 6-11

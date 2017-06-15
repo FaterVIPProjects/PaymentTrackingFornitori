@@ -190,7 +190,8 @@
 										number="{
 											parts:[{path:'docGrossAmount'},{path:'currency'}],
 											type: 'sap.ui.model.type.Currency',
-											formatOptions: {showMeasure: false}
+											formatOptions: {showMeasure: false},
+											formatter: '.formatter.amountFormatter'
 										}" 
 										unit="{tempModel>/CurrentLineCurrency}" />
 								</cells>
