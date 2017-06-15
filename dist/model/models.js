@@ -104,7 +104,7 @@ sap.ui.define([
 				sortItems:[
 					{
 						name: oBundle.getText("docNumberLabel"),
-						selected: true,
+						selected: false,
 						key: "docNumber"
 					},
 					{
@@ -129,7 +129,7 @@ sap.ui.define([
 					},
 					{
 						name: oBundle.getText("pareggioDocNumberLabel"),
-						selected: false,
+						selected: true,
 						key: "pareggioDocNumber"
 					},
 					{

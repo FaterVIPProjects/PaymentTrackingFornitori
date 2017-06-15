@@ -28,7 +28,7 @@ sap.ui.define([
 			var oTempModel = oView.getModel("tempModel");
 			var associatedSupplier = [];
 			//var supplierName = "FOR_0000852";
-			var supplierName = "FOR_0001543";
+			var supplierName = "FOR_0001542";
 			try {
 				var userShell = sap.ushell.Container.getService("UserInfo").getUser();
 				supplierName = userShell.getId().toUpperCase();

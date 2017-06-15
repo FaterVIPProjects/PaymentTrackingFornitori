@@ -28,7 +28,7 @@ sap.ui.define([
 			var oTempModel = oView.getModel("tempModel");
 			var associatedSupplier = [];
 			//var supplierName = "FOR_0000852";
-			var supplierName = "FOR_0001543";
+			var supplierName = "FOR_0001542";
 			try {
 				var userShell = sap.ushell.Container.getService("UserInfo").getUser();
 				supplierName = userShell.getId().toUpperCase();
@@ -986,7 +986,7 @@ sap.ui.define([
 			return sCSV;
 		},
 
-				_downloadCSVFile: function(sReportTitle, sCSV) {
+			_downloadCSVFile: function(sReportTitle, sCSV) {
 			//this will remove the blank-spaces from the title and replace it with an underscore
 			var sFileName = sReportTitle.replace(/ /g, "_");
 			// Internet Explorer 6-11
