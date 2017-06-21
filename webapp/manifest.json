@@ -107,6 +107,10 @@
 					}
 				},
 				"dataSource": "ZVIP_PROJECT_SRV"
+			},
+			"subtotal": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/subtotal.json"
 			}
 		},
 		"resources": {

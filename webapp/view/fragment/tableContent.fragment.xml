@@ -1,219 +1,106 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
-
 	<HBox>
 		<l:Grid>
 			<!--HEADER TABLE-->
-			<Table id="productsTableHeader"
-				class="tableHeader sapUiSizeCompact"
-				showNoData="false">
+			<Table id="productsTableHeader" class="tableHeader sapUiSizeCompact" showNoData="false">
 				<headerToolbar>
 					<OverflowToolbar>
-						<Title titleStyle="H6" 
-							class="fakeLabel"
-							text="{i18n>documentCountLabel}: {documentsCount}"/>						
+						<Title titleStyle="H6" class="fakeLabel" text="{i18n>documentCountLabel}: {documentsCount}"/>
 						<ToolbarSpacer></ToolbarSpacer>
 						<!--  Add the Personalization button -->
-						<Button icon="sap-icon://excel-attachment" press="onExcelExportButtonPressed"  tooltip="{i18n>tableHeaderExportButtonTTP}">
+						<Button icon="sap-icon://excel-attachment" press="onExcelExportButtonPressed" tooltip="{i18n>tableHeaderExportButtonTTP}">
 							<layoutData>
-								<OverflowToolbarLayoutData priority="NeverOverflow" />
+								<OverflowToolbarLayoutData priority="NeverOverflow"/>
 							</layoutData>
 						</Button>
 						<Button icon="sap-icon://action-settings" press="onTablePersonalizationButtonPressed" tooltip="{i18n>tableHeaderSettingsButtonTTP}">
 							<layoutData>
-								<OverflowToolbarLayoutData priority="NeverOverflow" />
+								<OverflowToolbarLayoutData priority="NeverOverflow"/>
 							</layoutData>
 						</Button>
 						<Button icon="sap-icon://sort" press="onTableSortingButtonPressed" tooltip="{i18n>tableHeaderSortingButtonTTP}">
 							<layoutData>
-								<OverflowToolbarLayoutData priority="NeverOverflow" />
+								<OverflowToolbarLayoutData priority="NeverOverflow"/>
 							</layoutData>
-						</Button>				
+						</Button>
 					</OverflowToolbar>
-				</headerToolbar>			
+				</headerToolbar>
 				<columns>
-					<Column 		
-						hAlign="Left">
-						<Text text="{i18n>docNumberLabel}" 
-							tooltip="{i18n>docNumberColumnTTP}"/>
+					<Column hAlign="Left">
+						<Text text="{i18n>docNumberLabel}" tooltip="{i18n>docNumberColumnTTP}"/>
 					</Column>
-					<Column  		
-						minScreenWidth="Tablet" 
-						demandPopin="true"	
-						hAlign="Center"	>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 						<Text text="{i18n>docTypeDescrLabel}" tooltip="{i18n>docTypeColumnTTP}"/>
 					</Column>
-					<Column 			
-						minScreenWidth="Tablet" 
-						demandPopin="true"	
-						hAlign="Right">
-						<Text text="{i18n>docAmountLabel}" 
-							tooltip="{i18n>docAmountColumnTTP}"/>
-					</Column>			
-					
-					<Column 		
-						minScreenWidth="Tablet" 
-						demandPopin="true"	
-						hAlign="Center">
-						<Text text="{i18n>documentDateLabel}" 
-							tooltip="{i18n>docDateColumnTTP}"/>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+						<Text text="{i18n>docAmountLabel}" tooltip="{i18n>docAmountColumnTTP}"/>
 					</Column>
-					<Column 	
-						minScreenWidth="Tablet" 
-						demandPopin="true"	
-						hAlign="Center"	>
-						<Text text="{i18n>expireDateLabel}" 
-							tooltip="{i18n>expireDateColumnTTP}"/>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Text text="{i18n>documentDateLabel}" tooltip="{i18n>docDateColumnTTP}"/>
 					</Column>
-					<Column 	
-						minScreenWidth="Tablet" 
-						demandPopin="true"	
-						hAlign="Center">
-						<Text text="{i18n>pareggioDocNumberLabel}" 
-							tooltip="{i18n>pareggioDocNrColumnTTP}"/>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Text text="{i18n>expireDateLabel}" tooltip="{i18n>expireDateColumnTTP}"/>
 					</Column>
-					<Column  
-						minScreenWidth="Tablet" 
-						demandPopin="true"	
-						hAlign="Center">
-						<Text text="{i18n>pareggioDocDateLabel}" 
-							tooltip="{i18n>pareggioDocDateColumnTTP}"/>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Text text="{i18n>pareggioDocNumberLabel}" tooltip="{i18n>pareggioDocNrColumnTTP}"/>
 					</Column>
-					<Column 
-						minScreenWidth="Tablet" 
-						demandPopin="true"	
-						hAlign="Center">
-						<Text text="{i18n>internalDocNumberLabel}" 
-							tooltip="{i18n>internalDocNumberColumnTTP}"/>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Text text="{i18n>pareggioDocDateLabel}" tooltip="{i18n>pareggioDocDateColumnTTP}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Text text="{i18n>internalDocNumberLabel}" tooltip="{i18n>internalDocNumberColumnTTP}"/>
 					</Column>
 				</columns>
 				<layoutData>
-					<l:GridData span="L12 M12 S12"
-						linebreak="true"/>
-				</layoutData>		
+					<l:GridData span="L12 M12 S12" linebreak="true"/>
+				</layoutData>
 			</Table>
-		
 			<!--DATA TABLE-->
-			<ScrollContainer
-				height="500px"
-				horizontal="true"
-				vertical="true"
-				focusable="true">
-				<Table id="productsTable"
-					class="sapUiSizeCompact"
-					items="{Invoices}">
+			<ScrollContainer height="500px" horizontal="true" vertical="true" focusable="true">
+				<Table id="productsTable" class="sapUiSizeCompact"
+					items="{ path: 'Invoices', sorter: { path: 'currency', descending: false, group: true } }">
 					<columns>
-						<Column id="docNumberCol"		
-							hAlign="Left">
+						<Column id="docNumberCol" hAlign="Left">
 							<footer>
 								<Text text="{i18n>total}"></Text>
-							</footer>					
+							</footer>
 						</Column>
-						<Column id="docTypeCol" 		
-							minScreenWidth="Tablet" 
-							demandPopin="true"	
-							hAlign="Center">
-						</Column>
-						<Column id="amountCol"			
-							minScreenWidth="Tablet" 
-							demandPopin="true"	
-							hAlign="Right">
+						<Column id="docTypeCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
+						<Column id="amountCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
 							<footer>
-								<ObjectNumber 
-									number="{
-										path: 'Invoices',
-						            	formatter: '.formatter.totalFooterFormatter'
-									}" 
-									state="{
-										path: 'Invoices',
-						            	formatter: '.formatter.totalColorFooterFormatter'
-									}" 
-									unit="{Invoices/0/currency}" />
-							</footer>					
+								<ObjectNumber number="{ path: 'Invoices', formatter: '.formatter.totalFooterFormatter' }"
+									state="{ path: 'Invoices', formatter: '.formatter.totalColorFooterFormatter' }" unit="{Invoices/0/currency}"/>
+							</footer>
 						</Column>
-						
-						<Column id="docDateCol" 		
-							minScreenWidth="Tablet" 
-							demandPopin="true"	
-							hAlign="Center">
-						</Column>
-						<Column id="expireDateCol"	
-							minScreenWidth="Tablet" 
-							demandPopin="true"	
-							hAlign="Center">	
-						</Column>
-						<Column id="pareggioDocNrCol"	
-							minScreenWidth="Tablet" 
-							demandPopin="true"	
-							hAlign="Center">
-						</Column>
-						<Column id="pareggioDocDateCol" 
-						minScreenWidth="Tablet" 
-							demandPopin="true"	
-							hAlign="Center">
-						</Column>
-						<Column id="internalDocNrCol"
-						minScreenWidth="Tablet" 
-							demandPopin="true"	
-							hAlign="Center">
-						</Column>
+						<Column id="docDateCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
+						<Column id="expireDateCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
+						<Column id="pareggioDocNrCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
+						<Column id="pareggioDocDateCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
+						<Column id="internalDocNrCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
 					</columns>
 					<items>
-						<ColumnListItem
-							type="{= (${status} === '2') ? 'Navigation' : 'Inactive' }"
-							press="onColumnListItemPress">
+						<ColumnListItem type="{= (${status} === '2') ? 'Navigation' : 'Inactive' }" press="onColumnListItemPress">
 							<cells>
-								<ObjectIdentifier title="{docNumber}" class="sapMTableContentMargin" />
-								<Text text="{docType}" />
-								<ObjectNumber 
-									number="{
-										path: 'amount',
-						            	formatter: '.formatter.amountFormatter'
-									}" 
-									unit="{currency}"
-									state="{=${amount}>0 ? 'Success' : 'Error'}"
-									/>
-								<Text text="{
-										path:'docDate',
-										type: 'sap.ui.model.type.Date',
-									    formatOptions: {
-									    	source: {
-									    		pattern: 'yyyy-MM-ddTHH:mm:ss'
-									    	}
-									    }							
-									}" />
-								<Text text="{
-										path:'expireDate',
-										type: 'sap.ui.model.type.Date',
-									    formatOptions: {
-									    	source: {
-									    		pattern: 'yyyy-MM-ddTHH:mm:ss'
-									    	}
-									    }							
-									}" />
-								<Text text="{pareggioDocNumber}" />
-								<Text text="{
-										path:'pareggioDocDate',
-										type: 'sap.ui.model.type.Date',
-									    formatOptions: {
-									    	source: {
-									    		pattern: 'yyyy-MM-ddTHH:mm:ss'
-									    	}
-									    }							
-									}" />
-								<Text text="{internalDocNumber}" />
+								<ObjectIdentifier title="{docNumber}" class="sapMTableContentMargin"/>
+								<Text text="{docType}"/>
+								<ObjectNumber number="{ path: 'amount', formatter: '.formatter.amountFormatter' }" unit="{currency}"
+									state="{=${amount}>0 ? 'Success' : 'Error'}"/>
+								<Text text="{ path:'docDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss' } } }"/>
+								<Text text="{ path:'expireDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss' } } }"/>
+								<Text text="{pareggioDocNumber}"/>
+								<Text text="{ path:'pareggioDocDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss' } } }"/>
+								<Text text="{internalDocNumber}"/>
 							</cells>
 						</ColumnListItem>
 					</items>
 				</Table>
 				<layoutData>
-					<l:GridData span="L12 M12 S12"
-						linebreak="true"/>
+					<l:GridData span="L12 M12 S12" linebreak="true"/>
 				</layoutData>
-			</ScrollContainer>	
+			</ScrollContainer>
 		</l:Grid>
 		<layoutData>
-			<l:GridData span="L12 M12 S12"
-				linebreak="true"/>
-		</layoutData>			
+			<l:GridData span="L12 M12 S12" linebreak="true"/>
+		</layoutData>
 	</HBox>
 </core:FragmentDefinition>

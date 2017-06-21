@@ -27,8 +27,10 @@ sap.ui.define([
 			var oModel = oView.getModel();
 			var oTempModel = oView.getModel("tempModel");
 			var associatedSupplier = [];
-			//var supplierName = "FOR_0000852";
-			var supplierName = "FOR_0001542";
+
+			//var supplierName = "FOR_0001545"; // CASA DEL BULLONE
+			var supplierName = "FOR_0001592"; // GP CELLULOSE GMBH
+
 			try {
 				var userShell = sap.ushell.Container.getService("UserInfo").getUser();
 				supplierName = userShell.getId().toUpperCase();
@@ -587,13 +589,12 @@ sap.ui.define([
 			// Iterate through selected suppliers to retrieve IDs
 			var aSupplierIDs = [];
 			for (var j in aSuppliers) {
-				if (j === "0"){
-					aSupplierIDs.push(new sap.ui.model.Filter("supplierId", sap.ui.model.FilterOperator.EQ, aSuppliers[j].Lifnr));	
+				if (j === "0") {
+					aSupplierIDs.push(new sap.ui.model.Filter("supplierId", sap.ui.model.FilterOperator.EQ, aSuppliers[j].Lifnr));
+				} else {
+					aSupplierIDs.push(new sap.ui.model.Filter("supplierId", sap.ui.model.FilterOperator.EQ, aSuppliers[j].supplierId));
 				}
-				else{
-					aSupplierIDs.push(new sap.ui.model.Filter("supplierId", sap.ui.model.FilterOperator.EQ, aSuppliers[j].supplierId));	
-				}
-				
+
 			}
 
 			aSupplierIDs = new sap.ui.model.Filter(aSupplierIDs, false);
@@ -710,7 +711,7 @@ sap.ui.define([
 						// FIX SOSTITUZIONE SUPPLIER_ID CON LIFNR
 						if (x === 0)
 							aInvoices[x].supplierId = aInvoices[x].Lifnr;
-						
+
 						aInvoices[x].visible = false;
 						aInvoices[x].Invoices = [];
 
@@ -729,7 +730,7 @@ sap.ui.define([
 								sSupplierId = sSupplierId.replace(/^0+/, '');
 							else
 								sSupplierId = "";
-							
+
 							if (invoiceSupplierId && invoiceSupplierId !== "")
 								invoiceSupplierId = invoiceSupplierId.replace(/^0+/, '');
 							else
@@ -783,6 +784,71 @@ sap.ui.define([
 						"/config/dataLoaded",
 						true
 					);
+
+					//-----------------------------------------------------------------
+					//Subtotali per divise
+					var subtotalModel = that.getView().getModel("subtotal");
+					var items = subtotalModel.getProperty("/SubTotals");
+
+					// Calolo subtotali
+					var Invoice;
+					var change = [];
+					var sInternalType = "string";
+					var amount1 = new sap.ui.model.type.Currency({
+						showMeasure: false
+					});
+
+					// Logica per gestire più divise
+					var subtotal = {};
+					var countCurrency = 0;
+					for (var s = 0; aInvoices[0].Invoices[s]; s++) {
+						Invoice = aInvoices[0].Invoices[s];
+
+						// Se è una nuova divisa inizializzo il subtotale 
+						if (!(Invoice.currency in subtotal)) {
+							subtotal[Invoice.currency] = 0;
+							countCurrency++;
+						}
+						//Sommo/sottraggo amount
+						if (Invoice.amount.substr(Invoice.amount.length - 1) === "-") {
+							var amount = Invoice.amount.substr(0, Invoice.amount.length - 1);
+							subtotal[Invoice.currency] -= parseFloat(amount, 10);
+						} else {
+							subtotal[Invoice.currency] += parseFloat(Invoice.amount, 10);
+						}
+					}
+
+					//Solo se c'è più di una divisa loop sui subtotali per aggiungerli nella lista
+					if (countCurrency > 1) {
+						var itemEntity = {};
+						var state = "";
+						for (var currency in subtotal) {
+							if (subtotal.hasOwnProperty(currency)) {
+								//	alert(subtotal[currency] + " " + currency);
+								var change = [];
+								change.push(subtotal[currency]);
+								change.push(currency);
+
+								if (subtotal[currency] > 0)
+									state = "Success";
+								else
+									state = "Error";
+
+								itemEntity = {
+									"Value": amount1.formatValue(change, sInternalType),
+									"CurrencyCode": currency,
+									"State": state
+								};
+								items.push(itemEntity);
+							}
+						}
+						subtotalModel.setProperty("/SubTotals", items);
+					} else {
+						//Nascondo tabella -> adesso non funziona perchè nel fragment
+						var subtotalTable = that.getView().byId("subtotalTable");
+						subtotalTable.setVisible(false);
+					}
+					//-----------------------------------------------------------------
 					oView.setBusy(false);
 				},
 				error: function(oError) {
@@ -986,7 +1052,7 @@ sap.ui.define([
 			return sCSV;
 		},
 
-			_downloadCSVFile: function(sReportTitle, sCSV) {
+		_downloadCSVFile: function(sReportTitle, sCSV) {
 			//this will remove the blank-spaces from the title and replace it with an underscore
 			var sFileName = sReportTitle.replace(/ /g, "_");
 			// Internet Explorer 6-11
@@ -994,7 +1060,7 @@ sap.ui.define([
 			if (isIE === true) {
 				var blob = new Blob([sCSV], {
 					type: "text/csv;charset=UTF-8",
-					encoding:"UTF-8"
+					encoding: "UTF-8"
 				});
 				if (navigator.msSaveBlob) { // IE 10+
 					navigator.msSaveBlob(blob, sFileName + ".csv");
