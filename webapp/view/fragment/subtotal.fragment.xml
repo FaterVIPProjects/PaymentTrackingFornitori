@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
-	<HBox>
+
 		<l:Grid>
 			<!--HEADER -->
 			<Table id="subtotalTable" class="tableHeader sapUiSizeCompact" showNoData="true"
@@ -10,7 +10,7 @@
 					</Column>
 				</columns>
 				<layoutData>
-					<l:GridData span="L12 M12 S12" linebreak="true"/>
+					<l:GridData span="L12 M12 S12" linebreak="false"/>
 				</layoutData>
 				<!--DATA -->
 				<items >
@@ -22,8 +22,6 @@
 				</items>
 			</Table>
 		</l:Grid>
-		<layoutData>
-			<l:GridData span="L12 M12 S12" linebreak="true"/>
-		</layoutData>
-	</HBox>
+
+
 </core:FragmentDefinition>

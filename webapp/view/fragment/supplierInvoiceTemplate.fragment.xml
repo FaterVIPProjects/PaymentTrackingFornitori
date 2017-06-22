@@ -8,8 +8,10 @@
 				<ObjectAttribute class="boldAttributeText" title="{i18n>typeCompanyFilterLabel}" text="FATER S.P.A."/>
 			</attributes>
 			<layoutData>
-				<l:GridData span="L12 M12 S12" linebreak="true"/>
+				<l:GridData span="L9 M9 S9" linebreak="true"/>
 			</layoutData>
+			
+			
 		</ObjectHeader>
 		
 		<!-- Subtotali per divisa -->

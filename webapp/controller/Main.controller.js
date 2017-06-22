@@ -786,9 +786,12 @@ sap.ui.define([
 					);
 
 					//-----------------------------------------------------------------
-					//Subtotali per divise
+					//SUBTOTALI PER DIVISA
 					var subtotalModel = that.getView().getModel("subtotal");
-					var items = subtotalModel.getProperty("/SubTotals");
+					var items = [];
+					
+					// Inizializzo subtotali					
+					subtotalModel.setProperty("/SubTotals", items);
 
 					// Calolo subtotali
 					var Invoice;
