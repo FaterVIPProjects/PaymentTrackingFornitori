@@ -28,7 +28,7 @@ sap.ui.define([
 			var oTempModel = oView.getModel("tempModel");
 			var associatedSupplier = [];
 			//var supplierName = "FOR_0000852";
-			var supplierName = "FOR_0001542";
+			var supplierName = "FOR_0001545";
 			try {
 				var userShell = sap.ushell.Container.getService("UserInfo").getUser();
 				supplierName = userShell.getId().toUpperCase();
@@ -773,7 +773,10 @@ sap.ui.define([
 					if (oData.results.length > 0) {
 						that.getView().byId("supplierFilterBar").setFilterBarExpanded(false);
 					}
-
+					
+					//FIX AS: Split fornitori per divisa
+					aInvoices = utils.splitSuppliersForCurrency(aInvoices);
+					
 					oModel.setProperty(
 						"/invoices",
 						aInvoices

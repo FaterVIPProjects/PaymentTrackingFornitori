@@ -171,7 +171,7 @@ sap.ui.define([
 		        }						
 			},
 			
-			totalRifA : function(lines){
+			totalQuotaRifA : function(lines){
 				if (!lines){
 					return "";
 				}				
@@ -182,6 +182,24 @@ sap.ui.define([
 		        
 				for(var i = 0; lines[i]; i++){
 					total += parseFloat(lines[i].docQuotaRifA, 10);
+				}
+        
+		        change.push(total);
+		        change.push("EUR");
+	            return amount1.formatValue(change, sInternalType);					
+			},
+			
+			totalRifA : function(lines){
+				if (!lines){
+					return "";
+				}				
+				var total = 0;
+				var change = [];
+		        var sInternalType = "string";
+		        var amount1 = new sap.ui.model.type.Currency({showMeasure: false});
+		        
+				for(var i = 0; lines[i]; i++){
+					total += parseFloat(lines[i].docRifA, 10);
 				}
         
 		        change.push(total);

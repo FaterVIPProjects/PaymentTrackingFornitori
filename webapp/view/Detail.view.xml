@@ -10,7 +10,7 @@
 			<content>
 				<ObjectHeader
 					backgroundDesign="Transparent"
-					condensed="true"				
+					condensed="true"
 					title="{i18n>paymentReminderNumberLabel}: {docNr}"
 					number="{
 						parts:[{path:'totalGrossAmount'},{path:'currency'}],
@@ -37,7 +37,7 @@
 						<ObjectAttribute class="boldAttributeText" title="{i18n>destinationBankLabel}"	 text="{destinationBank}" tooltip="{i18n>destinationBankTTP}"/>
 					</attributes>
 				</ObjectHeader>
-
+				
 				<!-- Table header -->
 				<Table class="sapUiSizeCompact"
 					showNoData="false"
@@ -52,7 +52,7 @@
 						<Column id="docDateColHeader" 		
 							minScreenWidth="Tablet"
 							demandPopin="true"	
-							hAlign="Center">
+							hAlign="Left">
 							<Text text="{i18n>documentDateLabel}"
 								tooltip="{i18n>docDateColumnTTP}"/>
 						</Column>
@@ -63,6 +63,13 @@
 							hAlign="Right">
 							<Text text="{i18n>docDiscountLabel}" 
 								tooltip="{i18n>docDiscountColumnTTP}"/>
+						</Column>
+						
+						<Column id="docRifAColHeader"	
+							minScreenWidth="Tablet" 
+							demandPopin="true"	
+							hAlign="Right">
+							<Text text="{i18n>docRifALabel}" />
 						</Column>
 						
 						<Column id="docQuotaRifAColHeader"	
@@ -92,6 +99,7 @@
 					<Table class="sapUiSizeCompact"
 						id="paymentReminderLinesTable"
 						items="{lines}">
+						
 						<columns>
 							<Column id="docNumberCol"													
 								hAlign="Left">
@@ -104,7 +112,7 @@
 							<Column id="docDateCol" 		
 								minScreenWidth="Tablet"
 								demandPopin="true"	
-								hAlign="Center">
+								hAlign="Left">
 							</Column>
 							
 							<Column id="docDiscountCol"		
@@ -127,7 +135,7 @@
 								</footer>
 							</Column>
 							
-							<Column id="docQuotaRifACol"	
+							<Column id="docRifACol"	
 								minScreenWidth="Tablet" 
 								demandPopin="true"	
 								hAlign="Right">
@@ -136,6 +144,20 @@
 										number="{
 											path: 'lines',
 							            	formatter: '.formatter.totalRifA'
+										}" 
+										unit="{currency}" />
+								</footer>
+							</Column>
+							
+							<Column id="docQuotaRifACol"	
+								minScreenWidth="Tablet" 
+								demandPopin="true"	
+								hAlign="Right">
+								<footer>
+									<ObjectNumber 
+										number="{
+											path: 'lines',
+							            	formatter: '.formatter.totalQuotaRifA'
 										}" 
 										unit="{currency}" />
 								</footer>
@@ -179,16 +201,26 @@
 											path: 'docDiscount',
 											formatter: '.formatter.unitVisible'
 										}"  />
+										
 									<ObjectNumber 
 										number="{
-											parts:[{path:'docQuotaRifA'},{path:'currency'}],
+											parts:[{path:'docRifA'},{path:'tempModel>/CurrentLineCurrency'}],
+											type: 'sap.ui.model.type.Currency',
+											formatOptions: {showMeasure: false}
+										}" 
+										unit="{tempModel>/CurrentLineCurrency}" />	
+										
+									<ObjectNumber 
+										number="{
+											parts:[{path:'docQuotaRifA'},{path:'tempModel>/CurrentLineCurrency'}],
 											type: 'sap.ui.model.type.Currency',
 											formatOptions: {showMeasure: false}
 										}" 
 										unit="{tempModel>/CurrentLineCurrency}" />
+
 									<ObjectNumber 
 										number="{
-											parts:[{path:'docGrossAmount'},{path:'currency'}],
+											parts:[{path:'docGrossAmount'},{path:'tempModel>/CurrentLineCurrency'}],
 											type: 'sap.ui.model.type.Currency',
 											formatOptions: {showMeasure: false},
 											formatter: '.formatter.amountFormatter'
@@ -214,7 +246,6 @@
 							tooltip="{i18n>notesTTP}"/>
 					</content><!-- sap.ui.core.Control -->
 				</Panel>
-				
 				<!-- Notes 2 text area -->
 				<Panel 
 					headerText=" "

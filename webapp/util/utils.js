@@ -34,6 +34,48 @@ sap.ui.define([
 				currency = 'EUR';
 			change.push(currency);
 			return amount1.formatValue(change, sInternalType) + " " + currency;
+		},
+
+		splitSuppliersForCurrency: function(aInvoices) {
+			// FIX AS: SPLIT DOCUMENTI PER DIVISA
+			var newSuppliers = [];
+			if (aInvoices.length > 0) {
+				for (var x = 0; aInvoices[x]; x++) {
+					var currentSupplier = aInvoices[x];
+					var invoices = currentSupplier.Invoices;
+					currentSupplier.Invoices = [];
+					if (invoices && invoices.length > 0) {
+						var currentCurrency = invoices[0].currency;
+						for (var y = 0; invoices[y]; y++) {
+							var currency = invoices[y].currency;
+							if (currency === currentCurrency) {
+								currentSupplier.Invoices.push(invoices[y]);
+							} else {
+								currentSupplier.currency = currentCurrency;
+								currentSupplier.documentsCount = currentSupplier.Invoices.length;
+								newSuppliers.push(currentSupplier);
+								currentCurrency = currency;
+
+								var newSupplier = jQuery.extend(true, {}, currentSupplier);
+								var newInvoices = [];
+								newInvoices.push(invoices[y]);
+								newSupplier.Invoices = newInvoices;
+								currentSupplier = newSupplier;
+							}
+						}
+						currentSupplier.currency = currentCurrency;
+						currentSupplier.documentsCount = currentSupplier.Invoices.length;
+						newSuppliers.push(currentSupplier);
+					}
+					else{
+						currentSupplier.currency = currentCurrency;
+						currentSupplier.documentsCount = currentSupplier.Invoices.length;
+						newSuppliers.push(currentSupplier);
+					}
+				}
+			}
+
+			return newSuppliers;
 		}
 	};
 });
